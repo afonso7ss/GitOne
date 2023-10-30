@@ -67,7 +67,7 @@ app.get("/", function(req, res) {
 
 
 // Rota do cadastro de produtos
-app.get("/produtos", function(req, res) {
+app.get("/produto", function(req, res) {
     const productList = products.map(product => `
         <li class="product-list-item">${product}</li>
     `).join('');
