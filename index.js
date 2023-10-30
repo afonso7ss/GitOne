@@ -54,12 +54,21 @@ app.get("/", function(req, res) {
             ${style}
         </head>
         <body>
-            <h1>Welcome to the Home Page!</h1>
-            <a href="/produtos">Ver Produtos</a>
+            <h1>Bem vindo ao trabalho nuvem!</h1>
+            <a href="/produtos"><button>Lista de Produtos</button></a>
+            <form action="/consulta" method="get">
+                <input type="text" name="parametro" placeholder="Nome do Produto">
+                <button type="submit">Consultar Produto</button>
+            </form>
+            <form action="/cadastro" method="get">
+                <input type="text" name="nome" placeholder="Nome do Produto">
+                <button type="submit">Cadastrar Produto</button>
+            </form>
         </body>
         </html>
     `);
 });
+
 
 // Rota do cadastro de produtos
 app.get("/produtos", function(req, res) {
@@ -85,8 +94,8 @@ app.get("/produtos", function(req, res) {
 });
 
 // Rota com parâmetro
-app.get("/consulta/:parametro", function(req, res) {
-    const parametro = req.params.parametro;
+app.get("/consulta", function(req, res) {
+    const parametro = req.query.parametro;
     const isInList = isProductInList(parametro);
     const message = isInList ? `O produto ${parametro} está na lista de produtos.` : `O produto ${parametro} não está na lista de produtos.`;
     res.send(`
@@ -105,8 +114,8 @@ app.get("/consulta/:parametro", function(req, res) {
 });
 
 // Rota de cadastro com parâmetro opcional para adicionar produtos à lista
-app.get("/cadastro/:nome?", function(req, res) {
-    const nome = req.params.nome;
+app.get("/cadastro", function(req, res) {
+    const nome = req.query.nome;
     if (nome) {
         if (!isProductInList(nome)) {
             // Adicione o novo produto à lista
@@ -114,7 +123,7 @@ app.get("/cadastro/:nome?", function(req, res) {
         }
 
         // Redirecione para a página de consulta
-        res.redirect(`/consulta/${nome}`);
+        res.redirect(`/consulta?parametro=${nome}`);
     } else {
         res.send(`
             <!DOCTYPE html>
