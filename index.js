@@ -31,12 +31,8 @@ const style = `
 `;
 
 // Lista de produtos
-const products = [
-    "Produto 1",
-    "Produto 2",
-    "Produto 3",
-    "Produto 4",
-    "Produto 5"
+const products = [ 
+    
 ];
 
 // Função para verificar se um produto está na lista
